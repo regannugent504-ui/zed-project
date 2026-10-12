@@ -1,189 +1,171 @@
-    :root {
-      --ink: #252b35;
-      --muted: #626b78;
-      --paper: #f7f8fc;
-      --card: #ffffff;
-      --accent: #5a4fcf;
-      --accent-dark: #4035a7;
-      --accent-light: #eeedff;
-      --border: #e0e4ed;
-      --success: #176b48;
-      --danger: #a32636;
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(35, 40, 70, .07);
+
+/* General page layout */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: #f5f3ef;
+    color: #292d32;
+}
+
+/* Header */
+header {
+    background-color: #314c42;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Main content */
+main {
+    max-width: 900px;
+    width: 90%;
+    margin: 30px auto;
+}
+
+section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    color: #314c42;
+    margin-top: 0;
+}
+
+/* Forms */
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b8c1bb;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus-visible {
+    outline: 3px solid #d59b37;
+    outline-offset: 2px;
+}
+
+/* Buttons */
+button {
+    background-color: #314c42;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 5px 5px 5px 0;
+}
+
+button:hover {
+    background-color: #243a32;
+}
+
+/* Reading statistics */
+#total-books,
+#finished-books,
+#pages-read {
+    font-weight: bold;
+    color: #314c42;
+    font-size: 1.2rem;
+}
+
+/* Book cards */
+.book-card {
+    background-color: #ffffff;
+    border: 1px solid #dce2dd;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 15px;
+    overflow-wrap: anywhere;
+}
+
+.book-card h3 {
+    color: #314c42;
+    margin-top: 0;
+}
+
+.book-card p {
+    margin: 8px 0;
+}
+
+/* Reading progress bars */
+progress {
+    width: 100%;
+    height: 18px;
+    accent-color: #48735c;
+}
+
+/* Delete button */
+.delete-button {
+    background-color: #a33232;
+}
+
+.delete-button:hover {
+    background-color: #812424;
+}
+
+/* Search and filter controls */
+#search,
+#status-filter {
+    margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #555555;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 600px) {
+    main {
+        width: 95%;
+        margin: 15px auto;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.55;
+    section {
+        padding: 18px;
     }
-    button, input, select, textarea { font: inherit; }
-    button, input, select, textarea { border-radius: 10px; }
-    a { color: var(--accent-dark); }
-    :focus-visible { outline: 3px solid #e09a2d; outline-offset: 3px; }
 
-    .site-header {
-      background: linear-gradient(135deg, #373080, #6559dc);
-      color: #fff;
-      padding: 34px 20px 42px;
+    header h1 {
+        font-size: 1.8rem;
     }
-    .header-inner, main, .footer-inner { width: min(1100px, calc(100% - 32px)); margin-inline: auto; }
-    .eyebrow {
-      margin: 0 0 8px;
-      font-size: .78rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      opacity: .88;
-    }
-    h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.1; letter-spacing: -.04em; }
-    .site-header p:last-child { max-width: 650px; margin: 14px 0 0; color: #f0efff; font-size: 1.05rem; }
 
-    main { padding-block: 28px 48px; }
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-bottom: 24px;
+    button {
+        max-width: 100%;
     }
-    .summary-card {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--card);
-      box-shadow: var(--shadow);
-    }
-    .summary-label { margin: 0; color: var(--muted); font-size: .9rem; }
-    .summary-number { margin: 4px 0 0; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; line-height: 1.2; }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(280px, .85fr) minmax(0, 1.5fr);
-      align-items: start;
-      gap: 22px;
-    }
-    .panel {
-      min-width: 0;
-      padding: 22px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    h2 { margin: 0 0 6px; font-size: 1.35rem; line-height: 1.25; }
-    .panel-intro { margin: 0 0 20px; color: var(--muted); font-size: .94rem; }
-    .field { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 6px; font-size: .93rem; font-weight: 700; }
-    input, select, textarea {
-      display: block;
-      width: 100%;
-      min-height: 44px;
-      padding: 10px 12px;
-      border: 1px solid #cbd1df;
-      background: #fff;
-      color: var(--ink);
-    }
-    textarea { min-height: 92px; resize: vertical; }
-    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
-    .field-help { margin: 5px 0 0; color: var(--muted); font-size: .82rem; }
-    .form-error { margin: 12px 0 0; color: var(--danger); font-weight: 650; }
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 10px 16px;
-      border: 1px solid transparent;
-      background: var(--accent);
-      color: #fff;
-      font-weight: 750;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .button:hover { background: var(--accent-dark); }
-    .button.secondary { background: #fff; color: var(--accent-dark); border-color: #c9c5f6; }
-    .button.secondary:hover { background: var(--accent-light); }
-    .button.danger { background: #fff; color: var(--danger); border-color: #e8bfc5; }
-    .button.danger:hover { background: #fff0f1; }
-    .form-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
-    .form-actions .button { flex: 1; }
-
-    .list-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .count { color: var(--muted); font-size: .9rem; white-space: nowrap; }
-    .toolbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(145px, .65fr); gap: 10px; margin-bottom: 16px; }
-    .toolbar label { font-size: .82rem; }
-    .toolbar input, .toolbar select { min-height: 42px; }
-    .book-list { display: grid; gap: 14px; }
-    .book-card {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      background: #fff;
-    }
-    .book-top { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
-    .book-title { margin: 0; font-size: 1.13rem; overflow-wrap: anywhere; }
-    .book-author { margin: 3px 0 0; color: var(--muted); }
-    .status {
-      flex-shrink: 0;
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: var(--accent-light);
-      color: var(--accent-dark);
-      font-size: .77rem;
-      font-weight: 800;
-    }
-    .rating { margin: 10px 0 0; color: #765900; font-size: .92rem; }
-    .progress-head { display: flex; justify-content: space-between; gap: 10px; margin: 17px 0 7px; font-size: .9rem; }
-    .progress-track { height: 10px; overflow: hidden; border-radius: 99px; background: #e9eaf1; }
-    .progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, #6659dc, #9b8df5); }
-    .progress-caption { margin: 6px 0 0; color: var(--muted); font-size: .84rem; }
-    .notes { margin: 12px 0 0; padding: 11px 12px; border-left: 3px solid #c9c4fb; background: #f8f7ff; color: #4d4b5a; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .update-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 9px; align-items: end; margin-top: 16px; }
-    .update-row label { font-size: .83rem; }
-    .update-row input { min-width: 0; }
-    .book-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .book-actions .button { min-height: 40px; padding: 8px 12px; font-size: .9rem; }
-    .empty-state { padding: 28px 16px; text-align: center; border: 1px dashed #c9cddd; border-radius: 14px; color: var(--muted); }
-    .empty-state strong { display: block; margin-bottom: 5px; color: var(--ink); font-size: 1.05rem; }
-    .status-message { min-height: 1.5em; margin: 12px 0 0; color: var(--success); font-size: .9rem; }
-    .site-footer { padding: 22px 0; color: var(--muted); text-align: center; font-size: .88rem; }
-
-    @media (max-width: 800px) {
-      .layout { grid-template-columns: minmax(0, 1fr); }
-      .summary-grid { gap: 10px; }
-      .summary-card { padding: 15px; }
-    }
-    @media (max-width: 520px) {
-      .site-header { padding: 28px 0 32px; }
-      .header-inner, main, .footer-inner { width: min(100% - 24px, 1100px); }
-      main { padding-top: 16px; }
-      .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-      .summary-card { padding: 12px 9px; border-radius: 13px; }
-      .summary-label { font-size: .75rem; line-height: 1.25; }
-      .summary-number { font-size: 1.35rem; }
-      .panel { padding: 16px; }
-      .toolbar { grid-template-columns: minmax(0, 1fr); }
-      .list-heading { align-items: start; flex-direction: column; gap: 3px; }
-      .book-top { flex-direction: column; }
-      .status { align-self: start; }
-      .update-row { grid-template-columns: minmax(0, 1fr); }
-      .update-row .button { width: 100%; }
-      .form-actions { flex-direction: column; }
-      .form-actions .button { width: 100%; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: .01ms !important; }
-    }
+}
