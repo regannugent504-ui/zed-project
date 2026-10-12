@@ -1,119 +1,110 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<title>Page Title</title>
-		<link rel="stylesheet" href="css/styles.css">
-		
-	<body>
-  <header class="site-header">
-    <div class="header-inner">
-      <p class="eyebrow">Your personal library</p>
-      <h1>Reading Tracker</h1>
-      <p>Keep your books in one place, update your page count, and celebrate every step toward finishing a book.</p>
-    </div>
-  </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/styles.css">
+    <title>Reading Tracker</title>
+</head>
+<body>
 
-  <main>
-    <section class="summary-grid" aria-label="Reading statistics">
-      <div class="summary-card">
-        <p class="summary-label">Books in your list</p>
-        <p class="summary-number" id="book-count">0</p>
-      </div>
-      <div class="summary-card">
-        <p class="summary-label">Pages read</p>
-        <p class="summary-number" id="pages-count">0</p>
-      </div>
-      <div class="summary-card">
-        <p class="summary-label">Finished</p>
-        <p class="summary-number" id="finished-count">0</p>
-      </div>
-    </section>
+    <header>
+        <h1>My Reading Tracker</h1>
+        <p>Organize your books and track your reading progress.</p>
+    </header>
 
-    <div class="layout">
-      <section class="panel" aria-labelledby="form-title">
-        <h2 id="form-title">Add a book</h2>
-        <p class="panel-intro">Enter a few details to start tracking a book. New books begin at page 0.</p>
-        <form id="book-form" novalidate>
-          <div class="field">
-            <label for="title">Book title <span aria-hidden="true">*</span></label>
-            <input id="title" name="title" required maxlength="180" autocomplete="off" aria-describedby="title-error">
-            <p class="form-error" id="title-error" hidden></p>
-          </div>
-          <div class="field">
-            <label for="author">Author</label>
-            <input id="author" name="author" maxlength="120" autocomplete="off">
-          </div>
-          <div class="field">
-            <label for="total-pages">Total pages <span aria-hidden="true">*</span></label>
-            <input id="total-pages" name="totalPages" type="number" min="1" step="1" required inputmode="numeric" aria-describedby="total-pages-error">
-            <p class="form-error" id="total-pages-error" hidden></p>
-          </div>
-          <div class="field">
-            <label for="status">Reading status</label>
-            <select id="status" name="status">
-              <option value="Want to read">Want to read</option>
-              <option value="Reading" selected>Reading</option>
-              <option value="Finished">Finished</option>
+    <main>
+        <section>
+            <h2>My Reading Overview</h2>
+
+            <p>Total Books: <span id="total-books">0</span></p>
+            <p>Books Finished: <span id="finished-books">0</span></p>
+            <p>Pages Read: <span id="pages-read">0</span></p>
+        </section>
+
+        <section>
+            <h2>Add a Book</h2>
+
+            <form id="book-form">
+                <label for="title">Book Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <br><br>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author">
+
+                <br><br>
+
+                <label for="totalPages">Total Pages:</label>
+                <input type="number" id="totalPages" name="totalPages"
+                       min="1" step="1" required>
+
+                <br><br>
+
+                <label for="pagesRead">Pages Read:</label>
+                <input type="number" id="pagesRead" name="pagesRead"
+                       min="0" step="1" value="0">
+
+                <br><br>
+
+                <label for="status">Reading Status:</label>
+                <select id="status" name="status">
+                    <option value="Want to read">Want to Read</option>
+                    <option value="Reading">Reading</option>
+                    <option value="Finished">Finished</option>
+                </select>
+
+                <br><br>
+
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating">
+                    <option value="0">Not Rated</option>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+
+                <br><br>
+
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes"></textarea>
+
+                <br><br>
+
+                <button type="submit">Add Book</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>My Books</h2>
+
+            <label for="search">Search by title or author:</label>
+            <input type="search" id="search">
+
+            <br><br>
+
+            <label for="status-filter">Filter by status:</label>
+            <select id="status-filter">
+                <option value="All">All Books</option>
+                <option value="Want to read">Want to Read</option>
+                <option value="Reading">Reading</option>
+                <option value="Finished">Finished</option>
             </select>
-          </div>
-          <div class="field">
-            <label for="rating">Rating</label>
-            <select id="rating" name="rating">
-              <option value="">Not rated</option>
-              <option value="1">1 out of 5</option>
-              <option value="2">2 out of 5</option>
-              <option value="3">3 out of 5</option>
-              <option value="4">4 out of 5</option>
-              <option value="5">5 out of 5</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="notes">Notes (optional)</label>
-            <textarea id="notes" name="notes" maxlength="1500" placeholder="Favorite quote, thoughts, or where you left off…"></textarea>
-          </div>
-          <div class="form-actions">
-            <button class="button" id="submit-button" type="submit">Add book</button>
-            <button class="button secondary" id="cancel-edit" type="button" hidden>Cancel edit</button>
-          </div>
-          <p id="form-message" class="status-message" role="status" aria-live="polite"></p>
-        </form>
-      </section>
 
-      <section class="panel" aria-labelledby="list-title">
-        <div class="list-heading">
-          <div>
-            <h2 id="list-title">My books</h2>
-            <p class="panel-intro" style="margin-bottom:0">Your saved list and reading progress.</p>
-          </div>
-          <span class="count" id="visible-count">0 books</span>
-        </div>
+            <div id="book-list">
+                <p>Your reading list will appear here.</p>
+            </div>
+        </section>
+    </main>
 
-        <div class="toolbar">
-          <div>
-            <label for="search">Search books</label>
-            <input id="search" type="search" placeholder="Title or author…" autocomplete="off">
-          </div>
-          <div>
-            <label for="filter-status">Filter by status</label>
-            <select id="filter-status">
-              <option value="All">All statuses</option>
-              <option value="Want to read">Want to read</option>
-              <option value="Reading">Reading</option>
-              <option value="Finished">Finished</option>
-            </select>
-          </div>
-        </div>
-
-        <p id="list-message" class="status-message" role="status" aria-live="polite"></p>
-        <div id="book-list" class="book-list" aria-live="polite"></div>
-      </section>
-    </div>
-    <footer class="site-footer">
-      <div class="footer-inner">Your reading list is saved in this browser on this device. It is not sent to a server.</div>
+    <footer>
+        <p>Your reading list is saved in your browser.</p>
     </footer>
-  </main>
 
-  <script>
+    <script src="script.js"></script>
+</body>
+</html>
