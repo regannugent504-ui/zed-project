@@ -392,8 +392,8 @@ applyFilters();
 
 function exportReadingTracker() {
   // Get reading data from localStorage
-  const savedData = localStorage.getItem("readingTracker");
-  const books = savedData ? JSON.parse(savedData) : [];
+    const savedData = localStorage.getItem("readingTracker");
+    const books = savedData ? JSON.parse(savedData) : [];
 
   if (books.length === 0) {
     alert("Your reading tracker is empty. Add a book before exporting.");
