@@ -386,63 +386,65 @@ document.getElementById("status-filter").addEventListener(
     "change",
     applyFilters
 );
-
-// Display saved books when the page loads
-applyFilters();
-
-function exportReadingTracker() {
-  // Get reading data from localStorage
-    const savedData = localStorage.getItem("readingTracker");
-    const books = savedData ? JSON.parse(savedData) : [];
-
-  if (books.length === 0) {
-    alert("Your reading tracker is empty. Add a book before exporting.");
-    return;
-  }
-
-  // Define the columns to export
-  const headers = [
-    "Title",
-    "Author",
-    "Status",
-    "Rating"
-  ];
-
-  // Escape values so commas and quotation marks work in CSV
-  function escapeCSV(value) {
+// Export books to a CSV file
+function escapeCSV(value) {
     const text = String(value ?? "");
-    return '"' + text.replace(/"/g, '""') + '"';
-  }
-
-  // Convert book data into CSV rows
-  const rows = books.map(book => [
-    book.title,
-    book.author,
-    book.status,
-    book.rating
-  ]);
-
-  const csvContent = [headers, ...rows]
-    .map(row => row.map(escapeCSV).join(","))
-    .join("\r\n");
-
-  // Create a downloadable CSV file
-  const blob = new Blob(["\uFEFF" + csvContent], {
-    type: "text/csv;charset=utf-8;"
-  });
-
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "reading-tracker.csv";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-
-  URL.revokeObjectURL(url);
+    // Wrap in quotes and double any quotes inside the text
+    return `"${text.replace(/"/g, '""')}"`;
 }
 
-// Connect the button to the export function
-document.getElementById("exportBtn")
-  .addEventListener("click", exportReadingTracker);
+function exportToCSV() {
+    if (books.length === 0) {
+        alert("You don't have any books to export yet.");
+        return;
+    }
+
+    const headers = [
+        "Title",
+        "Author",
+        "Total Pages",
+        "Pages Read",
+        "Progress (%)",
+        "Status",
+        "Rating",
+        "Notes"
+    ];
+
+    const rows = books.map(book => [
+        book.title,
+        book.author,
+        book.totalPages,
+        book.pagesRead,
+        getProgress(book),
+        book.status,
+        book.rating,
+        book.notes
+    ]);
+
+    const csv = [headers, ...rows]
+        .map(row => row.map(escapeCSV).join(","))
+        .join("\n");
+
+    // The BOM (\uFEFF) helps Excel read special characters correctly
+    const blob = new Blob(["\uFEFF" + csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "reading-tracker.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+// Handle the export button
+const exportBtn = document.getElementById("exportBtn");
+
+if (exportBtn) {
+    exportBtn.addEventListener("click", exportToCSV);
+}
+// Display saved books when the page loads
+applyFilters();
